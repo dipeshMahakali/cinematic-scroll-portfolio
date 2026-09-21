@@ -16,20 +16,20 @@
             document.head.appendChild(b);
         })();
     </script>
-    <link href="https://activetheory.net" rel="canonical">
-    <title>Active Theory · Creative Digital Experiences</title>
-    <meta name="description" content="Founded in 2012. We blend story, art &amp; technology as an in-house team of passionate makers. Our industry-leading web toolset consistently delivers award-winning work through quality &amp; performance. ">
-    <meta property="og:url" content="https://activetheory.net">
+    <link href="https://dipesh-patel.vercel.app" rel="canonical">
+    <title>Dipesh Patel · Creative Web Developer &amp; Designer</title>
+    <meta name="description" content="Dipesh Patel is a creative web developer &amp; designer building high-performance 3D digital experiences and websites that make businesses impossible to ignore.">
+    <meta property="og:url" content="https://dipesh-patel.vercel.app">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Active Theory · Creative Digital Experiences">
-    <meta property="og:description" content="Founded in 2012. We blend story, art &amp; technology as an in-house team of passionate makers. Our industry-leading web toolset consistently delivers award-winning work through quality &amp; performance. ">
-    <meta property="og:image" content="https://storage.googleapis.com/activetheory-v6.appspot.com/media/social.jpg">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://activetheory.net">
-    <meta property="twitter:title" content="Active Theory · Creative Digital Experiences">
-    <meta property="twitter:description" content="Founded in 2012. We blend story, art &amp; technology as an in-house team of passionate makers. Our industry-leading web toolset consistently delivers award-winning work through quality &amp; performance. ">
-    <meta property="twitter:image" content="https://storage.googleapis.com/activetheory-v6.appspot.com/media/social.jpg">
-    <meta name="apple-mobile-web-app-title" content="Active Theory">
+    <meta property="og:title" content="Dipesh Patel · Creative Web Developer &amp; Designer">
+    <meta property="og:description" content="Dipesh Patel is a creative web developer &amp; designer building high-performance 3D digital experiences and websites that make businesses impossible to ignore.">
+    <meta property="og:image" content="assets/images/_fallback/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://dipesh-patel.vercel.app">
+    <meta name="twitter:title" content="Dipesh Patel · Creative Web Developer &amp; Designer">
+    <meta name="twitter:description" content="Dipesh Patel is a creative web developer &amp; designer building high-performance 3D digital experiences and websites that make businesses impossible to ignore.">
+    <meta name="twitter:image" content="assets/images/_fallback/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Dipesh Patel">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
 	<link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
@@ -44,5 +44,389 @@
 </head>
 <body>
     <noscript><p style="background: black; color: white; font-size: 20px; display: inline; font-family: Helvetica, Arial, sans-serif; padding: 10px;">Please enable javascript</p></noscript>
+    <!-- Contact / Project Inquiry Modal -->
+    <style>
+        #contact-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            background: rgba(4, 6, 12, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        #contact-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #contact-modal-card {
+            background: linear-gradient(145deg, rgba(17, 24, 39, 0.96) 0%, rgba(10, 15, 28, 0.98) 100%);
+            border: 1px solid rgba(100, 255, 218, 0.28);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(100, 255, 218, 0.12);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 90vh;
+            overflow-y: auto;
+            color: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            position: relative;
+            transform: scale(0.94) translateY(24px);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 32px 28px;
+            box-sizing: border-box;
+        }
+        #contact-modal-overlay.active #contact-modal-card {
+            transform: scale(1) translateY(0);
+        }
+        .contact-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+        .contact-close-btn:hover {
+            background: rgba(100, 255, 218, 0.15);
+            border-color: #64ffda;
+            color: #64ffda;
+            transform: rotate(90deg);
+        }
+        .contact-badge {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #64ffda;
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.25);
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+        .contact-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 0 0 6px 0;
+            color: #ffffff;
+        }
+        .contact-subtitle {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #94a3b8;
+            margin: 0 0 20px 0;
+        }
+        .contact-quick-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .quick-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 7px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            color: #e2e8f0;
+            transition: all 0.2s ease;
+        }
+        .quick-chip:hover {
+            border-color: #64ffda;
+            color: #64ffda;
+            background: rgba(100, 255, 218, 0.08);
+            transform: translateY(-1px);
+        }
+        .quick-chip.whatsapp {
+            border-color: rgba(37, 211, 102, 0.4);
+            color: #25D366;
+            background: rgba(37, 211, 102, 0.08);
+        }
+        .quick-chip.whatsapp:hover {
+            background: rgba(37, 211, 102, 0.18);
+            border-color: #25D366;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        @media (max-width: 520px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .form-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #ffffff;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #64ffda;
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.15);
+            background: rgba(15, 23, 42, 0.95);
+        }
+        .form-textarea {
+            resize: vertical;
+            min-height: 85px;
+        }
+        .form-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #64ffda 0%, #00b4d8 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #0b0f19;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .form-submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(100, 255, 218, 0.35);
+        }
+        .form-submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .form-status {
+            margin-top: 14px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            display: none;
+            line-height: 1.4;
+        }
+        .form-status.success {
+            display: block;
+            background: rgba(37, 211, 102, 0.12);
+            border: 1px solid rgba(37, 211, 102, 0.35);
+            color: #4ade80;
+        }
+        .form-status.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            color: #f87171;
+        }
+    </style>
+
+    <div id="contact-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+        <div id="contact-modal-card">
+            <button class="contact-close-btn" id="contact-close-btn" aria-label="Close modal">✕</button>
+            <div class="contact-badge">DIRECT INQUIRY · DIPESH PATEL</div>
+            <h2 class="contact-title" id="contact-modal-title">Let's Build Together</h2>
+            <p class="contact-subtitle">Have a vision for a high-performance 3D website, web application, or client project? Send an inquiry or reach out directly.</p>
+
+            <div class="contact-quick-links">
+                <a href="https://wa.me/918319821606?text=Hi%20Dipesh,%20I'd%20like%20to%20discuss%20a%20project" target="_blank" rel="noopener" class="quick-chip whatsapp">
+                    💬 WhatsApp: +91 83198 21606
+                </a>
+                <a href="mailto:dipesh.patel1902@gmail.com" class="quick-chip">
+                    ✉️ dipesh.patel1902@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/dipesh-patel-10aa4b2a6/" target="_blank" rel="noopener" class="quick-chip">
+                    🔗 LinkedIn
+                </a>
+            </div>
+
+            <form id="contact-inquiry-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="contact-name">Your Name *</label>
+                        <input class="form-input" type="text" id="contact-name" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-email">Email Address *</label>
+                        <input class="form-input" type="email" id="contact-email" name="email" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-phone">WhatsApp / Phone</label>
+                        <input class="form-input" type="tel" id="contact-phone" name="phone" placeholder="+91 / +1 ...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-service">Project Type</label>
+                        <select class="form-select" id="contact-service" name="service">
+                            <option value="3D Interactive / WebGL Website">3D Interactive / WebGL Website</option>
+                            <option value="Full-Stack Web Application">Full-Stack Web Application</option>
+                            <option value="Enterprise / Corporate Website">Enterprise / Corporate Website</option>
+                            <option value="Mobile Application">Mobile Application</option>
+                            <option value="AI Integration / Virtual Assistant">AI Integration / Virtual Assistant</option>
+                            <option value="Creative UI/UX & Redesign">Creative UI/UX & Redesign</option>
+                            <option value="Other Project Inquiry">Other Project Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label" for="contact-message">Project Description / Message *</label>
+                        <textarea class="form-textarea" id="contact-message" name="message" placeholder="Tell me about your project, timeline, and requirements..." required></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="form-submit-btn" id="contact-submit-btn">
+                    <span>TRANSMIT INQUIRY</span> ➔
+                </button>
+                <div id="contact-status" class="form-status"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var overlay = document.getElementById('contact-modal-overlay');
+            var card = document.getElementById('contact-modal-card');
+            var closeBtn = document.getElementById('contact-close-btn');
+            var form = document.getElementById('contact-inquiry-form');
+            var submitBtn = document.getElementById('contact-submit-btn');
+            var statusDiv = document.getElementById('contact-status');
+
+            // Stop propagation to prevent 3D canvas interception
+            var stopEvents = ['pointerdown', 'pointerup', 'pointermove', 'mousedown', 'mouseup', 'mousemove', 'wheel', 'touchstart', 'touchend', 'touchmove', 'click'];
+            stopEvents.forEach(function(evt) {
+                card.addEventListener(evt, function(e) { e.stopPropagation(); }, { passive: false });
+            });
+
+            window.openContactModal = function(service) {
+                if (service && document.getElementById('contact-service')) {
+                    document.getElementById('contact-service').value = service;
+                }
+                statusDiv.className = 'form-status';
+                statusDiv.style.display = 'none';
+                overlay.classList.add('active');
+            };
+
+            window.closeContactModal = function() {
+                overlay.classList.remove('active');
+            };
+
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.closeContactModal();
+            });
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    window.closeContactModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    window.closeContactModal();
+                }
+            });
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var name = document.getElementById('contact-name').value.trim();
+                var email = document.getElementById('contact-email').value.trim();
+                var phone = document.getElementById('contact-phone').value.trim();
+                var service = document.getElementById('contact-service').value;
+                var message = document.getElementById('contact-message').value.trim();
+
+                if (!name || !email || !message) {
+                    statusDiv.className = 'form-status error';
+                    statusDiv.textContent = 'Please fill out all required fields.';
+                    statusDiv.style.display = 'block';
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span>TRANSMITTING...</span> ⏳';
+                statusDiv.style.display = 'none';
+
+                try {
+                    var response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name: name, email: email, phone: phone, service: service, message: message })
+                    });
+
+                    var result = await response.json().catch(function() { return {}; });
+
+                    if (response.ok && result.success) {
+                        statusDiv.className = 'form-status success';
+                        statusDiv.innerHTML = '✓ <strong>Message sent successfully!</strong> Dipesh has received your inquiry and will reply shortly.';
+                        statusDiv.style.display = 'block';
+                        form.reset();
+                        setTimeout(function() {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = '<span>TRANSMIT INQUIRY</span> ➔';
+                        }, 2500);
+                    } else {
+                        throw new Error(result.error || 'Server returned an error');
+                    }
+                } catch (err) {
+                    statusDiv.className = 'form-status error';
+                    statusDiv.innerHTML = '⚠️ Could not send directly: ' + (err.message || 'Network error') + '.<br>Please chat directly via <a href="https://wa.me/918319821606?text=' + encodeURIComponent('Hi Dipesh, inquiry from ' + name + ': ' + message) + '" target="_blank" style="color:#64ffda;text-decoration:underline;">WhatsApp (+91 83198 21606)</a> or email <a href="mailto:dipesh.patel1902@gmail.com" style="color:#64ffda;text-decoration:underline;">dipesh.patel1902@gmail.com</a>.';
+                    statusDiv.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>RETRY SENDING</span> ➔';
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

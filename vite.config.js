@@ -14,6 +14,37 @@ function activeTheoryPlugin() {
         const rawUrl = req.url || '/'
         const pathname = rawUrl.split('?')[0]
 
+        // Handle contact API endpoint
+        if (pathname === '/api/contact' && req.method === 'POST') {
+          let body = ''
+          req.on('data', chunk => { body += chunk })
+          req.on('end', async () => {
+            try {
+              req.body = JSON.parse(body || '{}')
+            } catch (e) {
+              req.body = {}
+            }
+            const mockRes = {
+              status(code) {
+                res.statusCode = code
+                return this
+              },
+              json(data) {
+                res.setHeader('Content-Type', 'application/json')
+                res.end(JSON.stringify(data))
+              }
+            }
+            try {
+              const handler = (await import('./api/contact.js')).default
+              await handler(req, mockRes)
+            } catch (err) {
+              console.error('Contact API error:', err)
+              mockRes.status(500).json({ error: 'Server error: ' + err.message })
+            }
+          })
+          return
+        }
+
         // Route rewrites for dev server
         if (pathname.startsWith('/ActiveTheory/assets/')) {
           req.url = req.url.replace('/ActiveTheory/assets/', '/assets/')
@@ -48,6 +79,44 @@ function activeTheoryPlugin() {
           res.setHeader('Content-Type', 'application/octet-stream')
         } else if (pathname.endsWith('.cube')) {
           res.setHeader('Content-Type', 'text/plain')
+        }
+
+        next()
+      })
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const rawUrl = req.url || '/'
+        const pathname = rawUrl.split('?')[0]
+
+        if (pathname === '/api/contact' && req.method === 'POST') {
+          let body = ''
+          req.on('data', chunk => { body += chunk })
+          req.on('end', async () => {
+            try {
+              req.body = JSON.parse(body || '{}')
+            } catch (e) {
+              req.body = {}
+            }
+            const mockRes = {
+              status(code) {
+                res.statusCode = code
+                return this
+              },
+              json(data) {
+                res.setHeader('Content-Type', 'application/json')
+                res.end(JSON.stringify(data))
+              }
+            }
+            try {
+              const handler = (await import('./api/contact.js')).default
+              await handler(req, mockRes)
+            } catch (err) {
+              console.error('Contact API error:', err)
+              mockRes.status(500).json({ error: 'Server error: ' + err.message })
+            }
+          })
+          return
         }
 
         next()
